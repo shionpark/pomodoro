@@ -1,0 +1,3 @@
+# 🍅 Pomodoro
+
+React + TypeScript + Vite
