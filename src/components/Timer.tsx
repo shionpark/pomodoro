@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { timerState, isPlayingState, roundsCompletedState, goalsCompletedState } from '@/atoms';
 import { formatTime } from '@/utils';
+import { DEFAULT_TIME } from '@/constants';
 
 function Timer() {
-  const [time, setTime] = useState<number>(5); // 25 minutes in seconds
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [roundsCompleted, setRoundsCompleted] = useState<number>(0);
-  const [goalsCompleted, setGoalsCompleted] = useState<number>(0);
+  const [time, setTime] = useRecoilState(timerState);
+  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const [roundsCompleted, setRoundsCompleted] = useRecoilState(roundsCompletedState);
+  const [goalsCompleted, setGoalsCompleted] = useRecoilState(goalsCompletedState);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setInterval> | undefined; // timer 변수의 타입 명시
+    let timer: ReturnType<typeof setInterval> | undefined;
 
     if (isPlaying && time > 0) {
       timer = setInterval(() => {
@@ -27,7 +31,7 @@ function Timer() {
 
   const handleRoundCompletion = () => {
     setRoundsCompleted((prevRounds) => prevRounds + 1);
-    setTime(5); // Reset the timer to 25 minutes
+    setTime(DEFAULT_TIME);
     if (roundsCompleted === 3) {
       setRoundsCompleted(0);
       setGoalsCompleted((prevGoals) => prevGoals + 1);

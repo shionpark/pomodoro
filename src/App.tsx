@@ -1,5 +1,8 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { styled, ThemeProvider } from 'styled-components';
+
+import { Globalstyles } from '@/styles';
+import { darkTheme } from './theme.ts';
 import { Timer } from './components';
 
 const Wrapper = styled.div`
@@ -17,10 +20,13 @@ const Title = styled.h1`
 
 function App() {
   return (
-    <Wrapper>
-      <Title>Pomodoro</Title>
-      <Timer />
-    </Wrapper>
+    <ThemeProvider theme={darkTheme}>
+      <Globalstyles />
+      <Wrapper>
+        <Title>Pomodoro</Title>
+        <Timer />
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 
