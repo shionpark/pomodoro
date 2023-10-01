@@ -1,46 +1,8 @@
-import React, { useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { timerSelector, isPlayingState, timerState, intervalIdState } from './recoils/atoms';
-import { DEFAULT_MINUTE } from './constants';
+import React from 'react';
+import { useTimer } from './hooks';
 
 function App() {
-  const { minutes, seconds } = useRecoilValue(timerSelector);
-  const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-  const [time, setTime] = useRecoilState(timerState);
-  const [intervalId, setIntervalId] = useRecoilState(intervalIdState);
-
-  useEffect(() => {
-    // 타이머가 0 이하로 가지 않도록 설정
-    if (time < 0) {
-      setTime(0);
-    }
-
-    // 타이머가 0이 되면 재생을 멈추고 intervalId를 클리어
-    if (time === 0) {
-      clearInterval(intervalId);
-      setIsPlaying(false);
-      setTime(DEFAULT_MINUTE);
-    }
-  }, [time, setIsPlaying, intervalId, setTime]);
-
-  const handlePlayPauseClick = () => {
-    setIsPlaying(!isPlaying);
-
-    if (!isPlaying) {
-      // play 버튼 클릭후 타이머 시작
-      const newIntervalId = setInterval(() => {
-        if (time > 0) {
-          setTime((prevTime) => prevTime - 1);
-        }
-      }, 1000);
-
-      setIntervalId(newIntervalId); // intervalIdState 업데이트
-    } else {
-      // 재생이 멈춘 경우 intervalState 클리어
-      clearInterval(intervalId);
-      setIntervalId(0); // intervalIdState 업데이트
-    }
-  };
+  const { minutes, seconds, isPlaying, handlePlayPauseClick } = useTimer();
 
   return (
     <>
