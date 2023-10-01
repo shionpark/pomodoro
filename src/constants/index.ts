@@ -1,2 +1,2 @@
-const MINUTE = 1;
-export const DEFAULT_TIME = MINUTE * 60;
+const MINUTE = 1; // standard : 25분
+export const DEFAULT_MINUTE = MINUTE * 60;

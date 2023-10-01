@@ -1,7 +1,5 @@
 import { atom, selector } from 'recoil';
-
-const MINUTE = 1; // standard : 25분
-const DEFAULT_MINUTE = MINUTE * 60;
+import { DEFAULT_MINUTE } from '@/constants';
 
 export const timerState = atom({
   key: 'timerState',

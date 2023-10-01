@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { timerSelector, isPlayingState, timerState, intervalIdState } from './recoils/atoms';
+import { DEFAULT_MINUTE } from './constants';
 
 function App() {
   const { minutes, seconds } = useRecoilValue(timerSelector);
@@ -18,6 +19,7 @@ function App() {
     if (time === 0) {
       clearInterval(intervalId);
       setIsPlaying(false);
+      setTime(DEFAULT_MINUTE);
     }
   }, [time, setIsPlaying, intervalId, setTime]);
 
