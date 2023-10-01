@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { roundsCompletedState, goalsCompletedState } from '@/recoils';
-import { MAX_ROUNDS } from '@/constants';
+import { MAX_GOALS, MAX_ROUNDS } from '@/constants';
 
 const useStatus = () => {
   const [roundsCompleted, setRoundsCompleted] = useRecoilState(roundsCompletedState);
@@ -15,7 +16,6 @@ const useStatus = () => {
       return newRounds;
     });
 
-    // roundsCompleted가 MAX_ROUNDS에 도달하면 goalsCompleted를 업데이트
     if (roundsCompleted === MAX_ROUNDS - 1) {
       setGoalsCompleted((prevGoals) => prevGoals + 1);
     }
@@ -25,6 +25,12 @@ const useStatus = () => {
     setRoundsCompleted(0);
     setGoalsCompleted(0);
   };
+
+  useEffect(() => {
+    if (goalsCompleted >= MAX_GOALS) {
+      setGoalsCompleted(0);
+    }
+  }, [goalsCompleted]);
 
   return {
     roundsCompleted,
