@@ -1,13 +1,24 @@
 import React from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { timerSelector, isPlayingState } from './recoils/atoms';
+import { timerSelector, isPlayingState, timerState } from './recoils/atoms';
 
 function App() {
   const { minutes, seconds } = useRecoilValue(timerSelector);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
+  const [time, setTime] = useRecoilState(timerState);
 
   const handlePlayPauseClick = () => {
     setIsPlaying(!isPlaying);
+
+    if (!isPlaying) {
+      const intervalId = setInterval(() => {
+        if (time > 0) {
+          setTime((prevTime) => prevTime - 1);
+        } else {
+          clearInterval(intervalId); // 타이머 중지
+        }
+      }, 1000);
+    }
   };
 
   return (
