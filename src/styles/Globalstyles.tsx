@@ -2,8 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 export const Globalstyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&display=swap');
     ${reset}
+    @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&display=swap');
     body {
         background-color: tomato;
         margin: 0 auto;
