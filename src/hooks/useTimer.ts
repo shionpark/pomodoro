@@ -5,7 +5,7 @@ import { isPlayingState, timerState, intervalIdState } from '@/recoils';
 
 import { DEFAULT_MINUTE } from '@/constants';
 import { formatTime } from '@/utils';
-import { useStatus } from '.';
+import { useStatus } from '@/hooks';
 
 const useTimer = () => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
@@ -22,7 +22,7 @@ const useTimer = () => {
       clearInterval(intervalId);
       setIsPlaying(false);
       setTime(DEFAULT_MINUTE);
-      incrementStatus(); // 타이머가 0에 도달하면 incrementStatus 함수를 호출하여 roundsCompleted를 증가
+      incrementStatus();
     }
   }, [time, setIsPlaying, intervalId, setTime, incrementStatus]);
 

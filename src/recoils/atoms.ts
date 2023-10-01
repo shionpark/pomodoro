@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom } from 'recoil';
 import { DEFAULT_MINUTE } from '@/constants';
 
 export const timerState = atom({
@@ -14,19 +14,6 @@ export const isPlayingState = atom({
 export const intervalIdState = atom({
   key: 'intervalIdState',
   default: 0,
-});
-
-export const timerSelector = selector({
-  key: 'timerSelector',
-  get: ({ get }) => {
-    const time = get(timerState);
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return {
-      minutes,
-      seconds,
-    };
-  },
 });
 
 export const roundsCompletedState = atom({
