@@ -1,4 +1,5 @@
 import React from 'react';
+import { MAX_GOALS, MAX_ROUNDS } from '@/constants';
 
 interface TimerStatusProps {
   rounds: number;
@@ -9,16 +10,10 @@ const TimerStatus = ({ rounds, goals }: TimerStatusProps) => {
   return (
     <>
       <div>
-        <span>{rounds}</span>
-        <span>/</span>
-        <span>4</span>
-        <span>rounds</span>
+        {rounds}/{MAX_ROUNDS}
       </div>
       <div>
-        <span>{goals}</span>
-        <span>/</span>
-        <span>12</span>
-        <span>goals</span>
+        {goals}/{MAX_GOALS}
       </div>
     </>
   );

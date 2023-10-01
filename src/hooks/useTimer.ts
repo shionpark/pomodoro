@@ -1,11 +1,11 @@
 // useTimer.js
 import { useEffect } from 'react';
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { timerSelector, isPlayingState, timerState, intervalIdState } from '@/recoils';
+import { useRecoilState } from 'recoil';
+import { isPlayingState, timerState, intervalIdState } from '@/recoils';
 import { DEFAULT_MINUTE } from '@/constants';
+import { formatTime } from '@/utils';
 
 const useTimer = () => {
-  const { minutes, seconds } = useRecoilValue(timerSelector);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [time, setTime] = useRecoilState(timerState);
   const [intervalId, setIntervalId] = useRecoilState(intervalIdState);
@@ -39,9 +39,11 @@ const useTimer = () => {
     }
   };
 
+  const { formattedMinutes, formattedSeconds } = formatTime(time);
+
   return {
-    minutes,
-    seconds,
+    minutes: formattedMinutes,
+    seconds: formattedSeconds,
     isPlaying,
     handlePlayPauseClick,
   };
