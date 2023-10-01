@@ -13,6 +13,11 @@ export const isPlayingState = atom({
   default: false,
 });
 
+export const intervalIdState = atom({
+  key: 'intervalIdState',
+  default: 0,
+});
+
 export const timerSelector = selector({
   key: 'timerSelector',
   get: ({ get }) => {
