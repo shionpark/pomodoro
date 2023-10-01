@@ -8,6 +8,11 @@ export const timerState = atom({
   default: DEFAULT_MINUTE,
 });
 
+export const isPlayingState = atom({
+  key: 'isPlayingState',
+  default: false,
+});
+
 export const timerSelector = selector({
   key: 'timerSelector',
   get: ({ get }) => {
