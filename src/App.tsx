@@ -1,10 +1,10 @@
 import React from 'react';
-import { useTimer } from './hooks';
+import { useTimer, useStatus } from './hooks';
 import { TimerDisplay, PlayPauseButton, TimerStatus } from './components';
 
 function App() {
-  const { minutes, seconds, isPlaying, handlePlayPauseClick, roundsCompleted, goalsCompleted } =
-    useTimer();
+  const { minutes, seconds, isPlaying, handlePlayPauseClick } = useTimer();
+  const { roundsCompleted, goalsCompleted } = useStatus();
 
   return (
     <>
