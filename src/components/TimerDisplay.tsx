@@ -1,16 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion, Variants } from 'framer-motion';
+import { useRecoilValue } from 'recoil';
+import { timerSelector } from '@/recoils';
 interface TimerDisplayProps {
   minutes: string;
   seconds: string;
 }
 
+const timerBlockVariants: Variants = {
+  initial: { scale: 0.8, opacity: 0.4 },
+  animate: { scale: 1.0, opacity: 1 },
+};
+
 const TimerDisplay = ({ minutes, seconds }: TimerDisplayProps) => {
+  const { minutes: animatedMinutes, seconds: animatedSeconds } = useRecoilValue(timerSelector);
+
   return (
     <TimerWrapper>
-      <TimeBlock>{minutes}</TimeBlock>
+      <TimeBlock
+        as={motion.span}
+        initial="initial"
+        animate="animate"
+        transition={{ type: 'spring' }}
+        variants={timerBlockVariants}
+        key={`minutes-${animatedMinutes}`}
+      >
+        {minutes}
+      </TimeBlock>
       <Colon>:</Colon>
-      <TimeBlock>{seconds}</TimeBlock>
+      <TimeBlock
+        as={motion.span}
+        initial="initial"
+        animate="animate"
+        transition={{ type: 'spring' }}
+        variants={timerBlockVariants}
+        key={`seconds-${animatedSeconds}`}
+      >
+        {seconds}
+      </TimeBlock>
     </TimerWrapper>
   );
 };
