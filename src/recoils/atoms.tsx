@@ -28,3 +28,13 @@ export const timerSelector = selector({
     };
   },
 });
+
+export const roundsCompletedState = atom({
+  key: 'roundsCompletedState',
+  default: 0,
+});
+
+export const goalsCompletedState = atom({
+  key: 'goalsCompletedState',
+  default: 0,
+});

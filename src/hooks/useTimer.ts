@@ -1,6 +1,13 @@
 import { useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { timerSelector, isPlayingState, timerState, intervalIdState } from '@/recoils';
+import {
+  timerSelector,
+  isPlayingState,
+  timerState,
+  intervalIdState,
+  roundsCompletedState,
+  goalsCompletedState,
+} from '@/recoils';
 import { DEFAULT_MINUTE } from '@/constants';
 
 const useTimer = () => {
@@ -8,6 +15,8 @@ const useTimer = () => {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [time, setTime] = useRecoilState(timerState);
   const [intervalId, setIntervalId] = useRecoilState(intervalIdState);
+  const [roundsCompleted, setRoundsCompleted] = useRecoilState(roundsCompletedState);
+  const [goalsCompleted, setGoalsCompleted] = useRecoilState(goalsCompletedState);
 
   useEffect(() => {
     if (time < 0) {
@@ -18,8 +27,14 @@ const useTimer = () => {
       clearInterval(intervalId);
       setIsPlaying(false);
       setTime(DEFAULT_MINUTE);
+
+      setRoundsCompleted((prevRounds) => prevRounds + 1);
+      if (roundsCompleted === 3) {
+        setRoundsCompleted(0);
+        setGoalsCompleted((prevGoals) => prevGoals + 1);
+      }
     }
-  }, [time, setIsPlaying, intervalId, setTime]);
+  }, [time, setIsPlaying, intervalId, setTime, setRoundsCompleted, setGoalsCompleted]);
 
   const handlePlayPauseClick = () => {
     setIsPlaying(!isPlaying);
@@ -42,6 +57,8 @@ const useTimer = () => {
     seconds,
     isPlaying,
     handlePlayPauseClick,
+    roundsCompleted,
+    goalsCompleted,
   };
 };
 
